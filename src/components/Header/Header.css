@@ -6,7 +6,7 @@
 header {
     display: flex;
     color: white;
-    background-color: black;
+    background-color: #550505;
     border-radius: 0 0 70px 70px;
     justify-content: space-around;
     align-items: center;

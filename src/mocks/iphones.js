@@ -12,7 +12,7 @@ export const iphones = [
     ram: null,
     os: "iOS, upgradable to iOS 3.1.3",
     preco: 1000,
-    img: require("../assets/images/iphone.png")
+    img: require("../assets/images/iphonexr.png")
   },
   {
     titulo: "Iphone 3G",
@@ -88,5 +88,5 @@ export const iphones = [
     os: "iOS 5, upgradable to iOS 9.3.6",
     preco: 1000,
     img: require('../assets/images/iphone5.png')
-  }
+  },
 ];
