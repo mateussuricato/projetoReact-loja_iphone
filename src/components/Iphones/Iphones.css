@@ -1,0 +1,114 @@
+.Iphones {
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 25px 70px;
+}
+
+@media (max-width: 1220px) {
+  .Iphones {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 840px) {
+  .Iphones {
+    grid-template-columns: 1fr;
+  }
+}
+
+.IphonesItem {
+  font-family: "Exo";
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  padding: 10px 0 10px 25px;
+  width: 250px;
+  display: flex;
+  justify-content: space-around;
+}
+
+@media (max-width: 400px) {
+  .IphonesItem {
+    width: 210px;
+    height: 170px;
+  }
+}
+
+.IphonesItem > div {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 2000px;
+}
+
+.IphoneItem_titulo {
+  font-size: 1.5em;
+  font-weight: 700;
+  line-height: 100%;
+  width: 100%;
+}
+
+.IphoneItem_preco {
+    color: yellow;
+    margin-top: 10px;
+}
+
+.IphoneItem_lancamento {
+    margin-top: 10px;
+}
+
+.IphoneItem_camera {
+    margin-top: 10px;
+}
+
+.IphoneItem_img {
+    height: 150px;
+    margin-right: -60px;
+}
+
+.Acoes {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+  }
+
+  .Acoes > button {
+    width: 190px;
+    background-color: rgb(0, 0, 0);
+  }
+
+.Adicionar,
+.Preencher {
+  border: none;
+  color: rgb(255, 255, 255);
+  border-radius: 5px;
+  font-family: "Exo", sans-serif;
+  padding: 5px;
+  max-width: 280px;
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 4;
+}
+
+.IphonesItem_badge {
+  color: black;
+  background-color: rgb(255, 255, 255);
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: .8em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: relative;
+  top: -15px;
+  left: -9px;
+}
+
+.IphonesItem_badge > span {
+  padding: 5px;
+}

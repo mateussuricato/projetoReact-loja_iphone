@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    color: white;
+    background-color: black;
+    border-radius: 0 0 70px 70px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+header > div > h1 {
+    padding: 20px;
+
+}
+
+img {
+    height: 40px;
+    cursor: pointer;
+}
