@@ -21,15 +21,15 @@
   font-family: "Exo";
   background: #00000040;
   border-radius: 10px;
-  padding: 10px 0 10px 25px;
-  width: 250px;
+  padding: 10px 0px 10px 35px;
+  width: 260px;
   display: flex;
   justify-content: space-around;
 }
 
 @media (max-width: 400px) {
   .IphonesItem {
-    width: 250px;
+    width: 260px;
   }
 }
 
@@ -37,7 +37,6 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  width: 2000px;
 }
 
 .IphoneItem_titulo {
@@ -61,8 +60,8 @@
 }
 
 .IphoneItem_img {
-    height: 150px;
-    margin-right: -35px;
+    height: 140px;
+    margin-right: 0px;
 }
 
 .Acoes {
