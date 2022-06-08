@@ -9,10 +9,14 @@ export function Iphones() {
         const iphone = {[iphoneIndex]: Number(iphoneSelecionado[iphoneIndex] || 0) + 1}
         setIphoneSelecionado({...iphoneSelecionado, ...iphone})
     }
+
+    const badgeCounter = (canRender, index) =>
+	Boolean(canRender) && (<span className="IphonesItem_badge"> {iphoneSelecionado[index]} </span>);
+
     return <div className="Iphones">
         {iphones.map((iphone, index) => (
         <div className='IphonesItem' key={index}>
-            <span className="IphonesItem_badge"><span>{iphoneSelecionado[index] || 0}</span></span>
+           {badgeCounter(iphoneSelecionado[index], index)}
                 <div>
                         <div className='IphoneItem_titulo'>{iphone.titulo}</div>
                         <div className='IphoneItem_preco'>R$ {iphone.preco},00</div>
