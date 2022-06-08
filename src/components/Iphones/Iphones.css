@@ -68,28 +68,35 @@
 .Acoes {
     display: flex;
     justify-content: space-between;
-    width: 100%;
-
   }
 
-  .Acoes > button {
-    width: 190px;
-    background-color: #1b5c50;
-  }
 
-.Adicionar,
-.Preencher {
+.Adicionar {
+  background-color: #1b5c50;
   border: none;
   color: #cffcf4;
   border-radius: 5px;
   font-family: "Exo", sans-serif;
   padding: 5px;
-  max-width: 280px;
   text-align: center;
   font-weight: 700;
   text-transform: uppercase;
   cursor: pointer;
-  width: 4;
+  width: 90px;
+}
+
+.Preencher {
+  background-color: #1b5c50;
+  border: none;
+  color: #cffcf4;
+  border-radius: 5px;
+  font-family: "Exo", sans-serif;
+  padding: 5px;
+  width: 190px;
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
 .IphonesItem_badge {
@@ -107,4 +114,18 @@
   top: -7px;
   left: -10px;
   padding: 0 6px 0 6px;
+}
+.Remover {
+  background-color: #c90000;
+  border: none;
+  color: #cffcf4;
+  border-radius: 5px;
+  font-family: "Exo", sans-serif;
+  padding: 5px;
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 90px;
+  margin-left: 5px;
 }
