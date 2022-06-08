@@ -6,18 +6,20 @@
 header {
     display: flex;
     color: white;
-    background-color: #550505;
+    background-color: #1b5c50;
     border-radius: 0 0 70px 70px;
     justify-content: space-around;
     align-items: center;
+    height: 50px;
 }
 
 header > div > h1 {
     padding: 20px;
+    font-size: 30px;
 
 }
 
 img {
-    height: 40px;
+    height: 30px;
     cursor: pointer;
 }

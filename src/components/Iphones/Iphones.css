@@ -19,7 +19,7 @@
 
 .IphonesItem {
   font-family: "Exo";
-  background: rgba(255, 255, 255, 0.3);
+  background: #00000040;
   border-radius: 10px;
   padding: 10px 0 10px 25px;
   width: 250px;
@@ -74,13 +74,13 @@
 
   .Acoes > button {
     width: 190px;
-    background-color: rgb(0, 0, 0);
+    background-color: #1b5c50;
   }
 
 .Adicionar,
 .Preencher {
   border: none;
-  color: rgb(255, 255, 255);
+  color: #cffcf4;
   border-radius: 5px;
   font-family: "Exo", sans-serif;
   padding: 5px;
