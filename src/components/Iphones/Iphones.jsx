@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import { iphoneService } from "services/iphoneService.js";
+import IphoneDetalhes from "components/IphoneDetalhes/IphoneDetalhes";
+import IphoneItem from "components/IphoneItem/IphoneItem";
 import "./Iphones.css";
 
 export function Iphones() {
   const [iphones, setIphone] = useState([]);
 
-  const [iphoneSelecionado, setIphoneSelecionado] = useState({});
+  const [iphoneSelecionado, setIphoneSelecionado] = useState([]);
+
+  const [iphoneModal, setIphoneModal] = useState(false);
 
   const addItem = (iphoneIndex) => {
     const iphone = {
@@ -21,18 +25,6 @@ export function Iphones() {
     setIphoneSelecionado({ ...iphoneSelecionado, ...iphone });
   };
 
-  const badgeCounter = (canRender, index) =>
-    Boolean(canRender) && (
-      <span className="IphonesItem_badge"> {iphoneSelecionado[index]} </span>
-    );
-
-  const removeButton = (canRender, index) =>
-    Boolean(canRender) && (
-      <button className="Remover" onClick={() => removerItem(index)}>
-        remover
-      </button>
-    );
-
   const getLista = async () => {
     const response = await iphoneService.getLista();
     setIphone(response);
@@ -45,32 +37,22 @@ export function Iphones() {
   return (
     <div className="Iphones">
       {iphones.map((iphone, index) => (
-        <div className="IphonesItem" key={index}>
-          {badgeCounter(iphoneSelecionado[index], index)}
-          <div>
-            <div className="IphoneItem_titulo">{iphone.titulo}</div>
-            <div className="IphoneItem_preco">R$ {iphone.preco},00</div>
-            <div className="IphoneItem_lancamento">
-              Ano: {iphone.lancamento}
-            </div>
-            <div className="IphoneItem_camera">Câmera: {iphone.camera}</div>
-            <div className="IphoneItem_acoes Acoes">
-              <button
-                className={`Adicionar ${
-                  !iphoneSelecionado[index] && "Preencher"
-                }`}
-                onClick={() => addItem(index)}
-              >
-                adicionar
-              </button>
-              {removeButton(iphoneSelecionado[index], index)}
-            </div>
-          </div>
-          <div className="img">
-            <img className="IphoneItem_img" src={iphone.img} alt={iphone.titulo} />
-          </div>
-        </div>
+        <IphoneItem 
+          key={index}
+          iphone={iphone}
+          quantidadeSelecionada={iphoneSelecionado[index]}
+          index={index}
+          onRemove={index => removerItem(index)}
+          onAdd={index => addItem(index)}
+          clickItem={() => setIphoneModal(iphone)}
+        />
       ))}
+      {iphoneModal && (
+        <IphoneDetalhes
+          iphone={iphoneModal}
+          closeModal={() => setIphoneModal(false)}
+        ></IphoneDetalhes>
+      )}
     </div>
   );
 }

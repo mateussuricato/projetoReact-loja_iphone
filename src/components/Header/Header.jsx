@@ -5,7 +5,7 @@ import './Header.css'
         <div>
             <h1>Lojinha</h1>
         </div>
-        <img src="https://frontend-elgeladon.onrender.com/assets/images/icons/sacola.svg" alt="" />
+        <img className='sacola' src="https://frontend-elgeladon.onrender.com/assets/images/icons/sacola.svg" alt="" />
     </header>
 }
 

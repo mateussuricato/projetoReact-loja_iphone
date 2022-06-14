@@ -1,0 +1,23 @@
+  .DetalheModal > div {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  @media (max-width: 400px) {
+    .DetalheModal {
+      width: 210px;
+      height: 100vh;
+    }
+}
+
+.ImagemModal {
+  height: 250px;
+  margin-left: 30px;
+}
+
+.titulo {
+  text-transform: uppercase;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
