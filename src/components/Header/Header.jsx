@@ -5,7 +5,7 @@ import './Header.css'
         <div>
             <h1>Lojinha</h1>
         </div>
-        <img src={require("../../assets/images/sacola.png")} alt="" />
+        <img src="https://frontend-elgeladon.onrender.com/assets/images/icons/sacola.svg" alt="" />
     </header>
 }
 
