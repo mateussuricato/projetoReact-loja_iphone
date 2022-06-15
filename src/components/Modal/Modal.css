@@ -1,8 +1,7 @@
 .Modal {
-    padding: 30px 80px 20px 20px;
+    padding: 30px 20px 0px 20px;
     min-width: 300px;
     max-width: 700px;
-    max-height: 450px;
     background: #1b5c50;
     position: relative;
     border-radius: 10px;
@@ -27,7 +26,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 30px;
   }
   
   .DetalheModal {

@@ -11,6 +11,7 @@ header {
     justify-content: space-around;
     align-items: center;
     height: 50px;
+    margin-bottom: 30px;
 }
 
 header > div > h1 {
@@ -22,4 +23,9 @@ header > div > h1 {
 .sacola {
     height: 30px;
     cursor: pointer;
+}
+
+button {
+    background: none;
+    border: none;
 }

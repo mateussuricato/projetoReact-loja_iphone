@@ -1,8 +1,13 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
 .Home {
     font-family: "Exo";
     position: relative;
     min-height: calc(100vh - 60px);
-    padding: 15px;
+
   }
 
   .Home_container {

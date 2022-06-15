@@ -30,6 +30,8 @@ export function Iphones() {
     setIphone(response);
   };
 
+  
+
   useEffect(() => {
     getLista();
   }, []);
