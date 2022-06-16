@@ -4,7 +4,7 @@ import IphoneDetalhes from "components/IphoneDetalhes/IphoneDetalhes";
 import IphoneItem from "components/IphoneItem/IphoneItem";
 import "./Iphones.css";
 
-export function Iphones() {
+export function Iphones({ iphoneCriado }) {
   const [iphones, setIphone] = useState([]);
 
   const [iphoneSelecionado, setIphoneSelecionado] = useState([]);
@@ -30,7 +30,17 @@ export function Iphones() {
     setIphone(response);
   };
 
-  
+  const adicionaPaletaNaLista = (paleta) => {
+    const lista = [...iphones, paleta];
+    setIphone(lista);
+  };
+
+  useEffect(() => {
+    if (iphoneCriado) {
+      adicionaPaletaNaLista(iphoneCriado);
+    }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [iphoneCriado]);
 
   useEffect(() => {
     getLista();
@@ -39,13 +49,13 @@ export function Iphones() {
   return (
     <div className="Iphones">
       {iphones.map((iphone, index) => (
-        <IphoneItem 
+        <IphoneItem
           key={index}
           iphone={iphone}
           quantidadeSelecionada={iphoneSelecionado[index]}
           index={index}
-          onRemove={index => removerItem(index)}
-          onAdd={index => addItem(index)}
+          onRemove={(index) => removerItem(index)}
+          onAdd={(index) => addItem(index)}
           clickItem={() => setIphoneModal(iphone)}
         />
       ))}

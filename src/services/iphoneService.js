@@ -7,8 +7,9 @@ export const iphoneService = {
     fetch(api.iphoneLista(), { method: "GET" }).then(parseResponse),
   getById: (id) =>
     fetch(api.iphoneById(id), { method: "GET" }).then(parseResponse),
-  create: () =>
-    fetch(api.createIphone(), { method: "POST" }).then(parseResponse),
+  create: (iphone) =>
+    fetch(api.createIphone(), { method: "POST", body: JSON.stringify(iphone), mode: "cors", headers: {
+      "Content-Type": "application/json"} }).then(parseResponse),
   updateById: (id) =>
     fetch(api.updateIphone(id), { method: "PUT" }).then(parseResponse),
   deleteById: (id) =>

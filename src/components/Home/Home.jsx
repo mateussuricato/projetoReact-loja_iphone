@@ -5,13 +5,15 @@ import "./Home.css";
 import Header from "components/Header/Header";
 function Home() {
   const [canShow, setCanShow] = useState(false)
+  const [addIphone, setAddIphone] = useState()
   return (
     <div className="Home">
       <Header createIphone={() => setCanShow(true)}/>
       <div className="Home_container">
-        <Iphones />
+        <Iphones iphoneCriado={addIphone}/>
         {
-          canShow && (<AdicionaIphoneModal closeModal={() => setCanShow(false)}/>)
+          canShow && (<AdicionaIphoneModal closeModal={() => setCanShow(false)}
+          onCreateIphone={(iphone) => setAddIphone(iphone)}/>)
         }
       </div>
     </div>

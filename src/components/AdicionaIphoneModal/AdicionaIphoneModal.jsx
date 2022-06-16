@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from "components/Modal/Modal";
 import "./AdicionaIphoneModal.css";
+import { iphoneService } from "services/iphoneService";
 
-function AdicionaIphoneModal({ closeModal }) {
+function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
   const form = {
     titulo: "",
     lancamento: "",
@@ -24,6 +25,72 @@ function AdicionaIphoneModal({ closeModal }) {
   const handleChange = (e, name) => {
     setState({ ...state, [name]: e.target.value });
   };
+
+  const [canDisable, setCanDisable] = useState(true);
+
+  const canDisableSendButton = () => {
+    const response = !Boolean(
+      state.titulo.length &&
+        state.lancamento.length &&
+        state.polegadas.length &&
+        state.resolucao.length &&
+        state.camera.length &&
+        
+        
+        state.cpu.length &&
+        state.gpu.length &&
+        
+        state.os.length &&
+        state.preco.length &&
+        state.img.length
+    );
+    setCanDisable(response);
+  };
+
+  useEffect(() => {
+    canDisableSendButton();
+  });
+
+  const createIphone = async () => {
+    const renomeiaCaminhoFoto = (fotoPath) => fotoPath.split("\\").pop();
+
+    const {
+      titulo,
+      lancamento,
+      polegadas,
+      resolucao,
+      camera,
+      selfcamera,
+      video,
+      cpu,
+      gpu,
+      ram,
+      os,
+      preco,
+      img
+    } = state;
+
+    const iphone = {
+      titulo,
+      lancamento,
+      polegadas,
+      resolucao,
+      camera,
+      selfcamera,
+      video,
+      cpu,
+      gpu,
+      ram,
+      os,
+      preco,
+      img: `../assets/images/${renomeiaCaminhoFoto(img)}`,
+    };
+
+    const response = await iphoneService.create(iphone);
+    onCreateIphone(response)
+    closeModal();
+  };
+
   return (
     <Modal closeModal={closeModal}>
       <div className="AdicionaIphoneModal">
@@ -37,6 +104,7 @@ function AdicionaIphoneModal({ closeModal }) {
               placeholder="Iphone XR"
               value={state.titulo}
               onChange={(e) => handleChange(e, "titulo")}
+
             />
           </div>
           <div>
@@ -47,6 +115,7 @@ function AdicionaIphoneModal({ closeModal }) {
               placeholder="2000"
               value={state.lancamento}
               onChange={(e) => handleChange(e, "lancamento")}
+
             />
           </div>
           <div>
@@ -57,6 +126,7 @@ function AdicionaIphoneModal({ closeModal }) {
               placeholder="3.5"
               value={state.polegadas}
               onChange={(e) => handleChange(e, "polegadas")}
+
             />
           </div>
           <div>
@@ -67,6 +137,7 @@ function AdicionaIphoneModal({ closeModal }) {
               placeholder="320 x 420 pixels"
               value={state.resolucao}
               onChange={(e) => handleChange(e, "resolucao")}
+
             />
           </div>
           <div>
@@ -77,6 +148,7 @@ function AdicionaIphoneModal({ closeModal }) {
               placeholder="2 MP"
               value={state.camera}
               onChange={(e) => handleChange(e, "camera")}
+
             />
           </div>
           <div>
@@ -87,6 +159,7 @@ function AdicionaIphoneModal({ closeModal }) {
               placeholder="2 MP"
               value={state.selfcamera}
               onChange={(e) => handleChange(e, "selfcamera")}
+
             />
           </div>
           <div>
@@ -97,6 +170,7 @@ function AdicionaIphoneModal({ closeModal }) {
               placeholder="480p@30fps"
               value={state.video}
               onChange={(e) => handleChange(e, "video")}
+
             />
           </div>
           <div>
@@ -107,6 +181,7 @@ function AdicionaIphoneModal({ closeModal }) {
               placeholder="600 MHz Cortex-A8"
               value={state.cpu}
               onChange={(e) => handleChange(e, "cpu")}
+
             />
           </div>
           <div>
@@ -117,6 +192,7 @@ function AdicionaIphoneModal({ closeModal }) {
               placeholder="PowerVR SGX535"
               value={state.gpu}
               onChange={(e) => handleChange(e, "gpu")}
+
             />
           </div>
           <div>
@@ -127,6 +203,7 @@ function AdicionaIphoneModal({ closeModal }) {
               placeholder="256 mb"
               value={state.ram}
               onChange={(e) => handleChange(e, "ram")}
+
             />
           </div>
           <div>
@@ -137,6 +214,7 @@ function AdicionaIphoneModal({ closeModal }) {
               placeholder="iOS 3, upgradable to iOS 6.1.6"
               value={state.os}
               onChange={(e) => handleChange(e, "os")}
+
             />
           </div>
           <div>
@@ -147,6 +225,7 @@ function AdicionaIphoneModal({ closeModal }) {
               placeholder="R$1000"
               value={state.preco}
               onChange={(e) => handleChange(e, "preco")}
+
             />
           </div>
           <div>
@@ -160,9 +239,12 @@ function AdicionaIphoneModal({ closeModal }) {
               accept="image/png"
               value={state.img}
               onChange={(e) => handleChange(e, "img")}
+
             />
           </div>
-          <input type="submit" className="enviar" value="Enviar"/>
+          <button type="button" disabled={canDisable} className="enviar" onClick={createIphone}>
+            Enviar
+          </button>
         </form>
       </div>
     </Modal>
