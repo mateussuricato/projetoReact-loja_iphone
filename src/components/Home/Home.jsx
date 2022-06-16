@@ -1,20 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdicionaIphoneModal from "components/AdicionaIphoneModal/AdicionaIphoneModal";
 import { Iphones } from "../Iphones/Iphones";
 import "./Home.css";
 import Header from "components/Header/Header";
+import { iphoneService } from "services/iphoneService";
+
 function Home() {
-  const [canShow, setCanShow] = useState(false)
-  const [addIphone, setAddIphone] = useState()
+  const [iphones, setIphone] = useState([]);
+
+  const getLista = async () => {
+    const response = await iphoneService.getLista();
+    setIphone(response);
+  };
+
+  useEffect(() => {
+    getLista();
+  }, []);
+
+  const [canShow, setCanShow] = useState(false);
   return (
     <div className="Home">
-      <Header createIphone={() => setCanShow(true)}/>
+      <Header createIphone={() => setCanShow(true)} />
       <div className="Home_container">
-        <Iphones iphoneCriado={addIphone}/>
-        {
-          canShow && (<AdicionaIphoneModal closeModal={() => setCanShow(false)}
-          onCreateIphone={(iphone) => setAddIphone(iphone)}/>)
-        }
+        <Iphones iphones={iphones} />
+        {canShow && (
+          <AdicionaIphoneModal
+            getIphones={getLista}
+            closeModal={() => setCanShow(false)}
+          />
+        )}
       </div>
     </div>
   );

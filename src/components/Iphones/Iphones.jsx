@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { iphoneService } from "services/iphoneService.js";
 import IphoneDetalhes from "components/IphoneDetalhes/IphoneDetalhes";
 import IphoneItem from "components/IphoneItem/IphoneItem";
 import "./Iphones.css";
 
-export function Iphones({ iphoneCriado }) {
-  const [iphones, setIphone] = useState([]);
+export function Iphones({ iphones }) {
 
   const [iphoneSelecionado, setIphoneSelecionado] = useState([]);
 
@@ -25,26 +24,10 @@ export function Iphones({ iphoneCriado }) {
     setIphoneSelecionado({ ...iphoneSelecionado, ...iphone });
   };
 
-  const getLista = async () => {
-    const response = await iphoneService.getLista();
-    setIphone(response);
+  const getIphoneByid = async (iphoneId) => {
+    const response = await iphoneService.getById(iphoneId);
+    setIphoneModal(response);
   };
-
-  const adicionaPaletaNaLista = (paleta) => {
-    const lista = [...iphones, paleta];
-    setIphone(lista);
-  };
-
-  useEffect(() => {
-    if (iphoneCriado) {
-      adicionaPaletaNaLista(iphoneCriado);
-    }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [iphoneCriado]);
-
-  useEffect(() => {
-    getLista();
-  }, []);
 
   return (
     <div className="Iphones">
@@ -56,7 +39,7 @@ export function Iphones({ iphoneCriado }) {
           index={index}
           onRemove={(index) => removerItem(index)}
           onAdd={(index) => addItem(index)}
-          clickItem={() => setIphoneModal(iphone)}
+          clickItem={(iphoneId) => getIphoneByid(iphoneId)}
         />
       ))}
       {iphoneModal && (

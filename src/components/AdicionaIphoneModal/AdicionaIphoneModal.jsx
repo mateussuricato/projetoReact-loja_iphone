@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import Modal from "components/Modal/Modal";
 import "./AdicionaIphoneModal.css";
 import { iphoneService } from "services/iphoneService";
+import { toast } from "react-hot-toast";
 
-function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
+
+function AdicionaIphoneModal({ closeModal, onCreateIphone, getIphones }) {
   const form = {
     titulo: "",
     lancamento: "",
@@ -35,11 +37,11 @@ function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
         state.polegadas.length &&
         state.resolucao.length &&
         state.camera.length &&
-        
-        
+        state.selfcamera.length &&
+        state.video.length &&
         state.cpu.length &&
         state.gpu.length &&
-        
+        state.ram.length &&
         state.os.length &&
         state.preco.length &&
         state.img.length
@@ -51,9 +53,10 @@ function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
     canDisableSendButton();
   });
 
-  const createIphone = async () => {
-    const renomeiaCaminhoFoto = (fotoPath) => fotoPath.split("\\").pop();
 
+  async function createIphone() {
+    const renomeiaCaminhoFoto = (fotoPath) => fotoPath.split("\\").pop();
+   
     const {
       titulo,
       lancamento,
@@ -67,8 +70,9 @@ function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
       ram,
       os,
       preco,
-      img
+      img,
     } = state;
+
 
     const iphone = {
       titulo,
@@ -86,10 +90,24 @@ function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
       img: `../assets/images/${renomeiaCaminhoFoto(img)}`,
     };
 
-    const response = await iphoneService.create(iphone);
-    onCreateIphone(response)
-    closeModal();
-  };
+    closeModal()
+    
+    const doisSec = new Promise((resolve) => {
+      setTimeout(resolve, 500)
+    })
+    
+    toast.promise(
+      doisSec,
+       {
+         loading: "Adicionando...",
+         success: <b>Iphone adicionado</b>
+       }
+     );
+
+    await iphoneService.create(iphone);
+  }
+  
+  getIphones()
 
   return (
     <Modal closeModal={closeModal}>
@@ -104,7 +122,7 @@ function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
               placeholder="Iphone XR"
               value={state.titulo}
               onChange={(e) => handleChange(e, "titulo")}
-
+              required
             />
           </div>
           <div>
@@ -115,7 +133,7 @@ function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
               placeholder="2000"
               value={state.lancamento}
               onChange={(e) => handleChange(e, "lancamento")}
-
+              required
             />
           </div>
           <div>
@@ -126,7 +144,7 @@ function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
               placeholder="3.5"
               value={state.polegadas}
               onChange={(e) => handleChange(e, "polegadas")}
-
+              required
             />
           </div>
           <div>
@@ -137,7 +155,7 @@ function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
               placeholder="320 x 420 pixels"
               value={state.resolucao}
               onChange={(e) => handleChange(e, "resolucao")}
-
+              required
             />
           </div>
           <div>
@@ -148,7 +166,7 @@ function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
               placeholder="2 MP"
               value={state.camera}
               onChange={(e) => handleChange(e, "camera")}
-
+              required
             />
           </div>
           <div>
@@ -159,7 +177,7 @@ function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
               placeholder="2 MP"
               value={state.selfcamera}
               onChange={(e) => handleChange(e, "selfcamera")}
-
+              required
             />
           </div>
           <div>
@@ -170,7 +188,7 @@ function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
               placeholder="480p@30fps"
               value={state.video}
               onChange={(e) => handleChange(e, "video")}
-
+              required
             />
           </div>
           <div>
@@ -181,7 +199,7 @@ function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
               placeholder="600 MHz Cortex-A8"
               value={state.cpu}
               onChange={(e) => handleChange(e, "cpu")}
-
+              required
             />
           </div>
           <div>
@@ -192,7 +210,7 @@ function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
               placeholder="PowerVR SGX535"
               value={state.gpu}
               onChange={(e) => handleChange(e, "gpu")}
-
+              required
             />
           </div>
           <div>
@@ -203,7 +221,7 @@ function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
               placeholder="256 mb"
               value={state.ram}
               onChange={(e) => handleChange(e, "ram")}
-
+              required
             />
           </div>
           <div>
@@ -214,7 +232,7 @@ function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
               placeholder="iOS 3, upgradable to iOS 6.1.6"
               value={state.os}
               onChange={(e) => handleChange(e, "os")}
-
+              required
             />
           </div>
           <div>
@@ -225,7 +243,7 @@ function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
               placeholder="R$1000"
               value={state.preco}
               onChange={(e) => handleChange(e, "preco")}
-
+              required
             />
           </div>
           <div>
@@ -239,10 +257,15 @@ function AdicionaIphoneModal({ closeModal, onCreateIphone }) {
               accept="image/png"
               value={state.img}
               onChange={(e) => handleChange(e, "img")}
-
+              required
             />
           </div>
-          <button type="button" disabled={canDisable} className="enviar" onClick={createIphone}>
+          <button
+            type="button"
+            disabled={canDisable}
+            className="enviar"
+            onClick={createIphone}
+          >
             Enviar
           </button>
         </form>

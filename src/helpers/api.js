@@ -8,6 +8,6 @@ const iphoneContext = {
 };
 
 export const api = {
-  baseURL: "https://api-iphone-mongoatlas.onrender.com/",
+  baseURL: "https://api-iphone-mongoatlas.onrender.com",
   ...iphoneContext,
 };
