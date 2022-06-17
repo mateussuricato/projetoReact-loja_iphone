@@ -5,7 +5,7 @@ import { iphoneService } from "services/iphoneService";
 import { toast } from "react-hot-toast";
 
 
-function AdicionaIphoneModal({ closeModal, onCreateIphone, getIphones }) {
+function AdicionaIphoneModal({ closeModal, getIphones }) {
   const form = {
     titulo: "",
     lancamento: "",
