@@ -1,0 +1,51 @@
+.IphonesItem--disable {
+  box-shadow: 0px 0px 7px rgba(148, 0, 211);
+}
+
+.IphonesItem--disable .IphoneItem_camera {
+  color: gray;
+}
+
+.IphonesItem--disable .IphoneItem_lancamento {
+  color: gray;
+}
+
+.IphonesItem--disable .IphoneItem_titulo {
+  color: gray;
+}
+
+.IphonesItem--disable .IphoneItem_preco {
+  color: gray;
+}
+
+.IphonesItem--disable .IphonesItem_badge {
+  display: none;
+}
+
+.IphonesItem--disable img {
+  filter: grayscale(100%);
+}
+
+.IphonesItem--disable button:disabled {
+  background-color: gray;
+}
+
+.tag {
+  background-color: darkviolet !important;
+  color: white !important;
+  position: absolute;
+  font-size: 0.6em;
+  border-radius: 5px;
+  padding: 5px;
+  top: -15px;
+  left: -10px;
+  letter-spacing: 1px;
+}
+
+.IphonesItem--deletar {
+  box-shadow: 0px 0px 7px rgba(211, 0, 0);
+}
+
+.tag--deletar {
+  background-color: red !important;
+}

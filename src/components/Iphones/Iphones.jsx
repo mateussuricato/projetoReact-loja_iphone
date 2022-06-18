@@ -3,8 +3,9 @@ import { iphoneService } from "services/iphoneService.js";
 import IphoneDetalhes from "components/IphoneDetalhes/IphoneDetalhes";
 import IphoneItem from "components/IphoneItem/IphoneItem";
 import "./Iphones.css";
+import { ActionMode } from "constants/index.js";
 
-export function Iphones({ iphones }) {
+export function Iphones({ iphones, mode, updateIphone, deleteIphone}) {
 
   const [iphoneSelecionado, setIphoneSelecionado] = useState([]);
 
@@ -26,13 +27,20 @@ export function Iphones({ iphones }) {
 
   const getIphoneByid = async (iphoneId) => {
     const response = await iphoneService.getById(iphoneId);
-    setIphoneModal(response);
+    const mapper = {
+      [ActionMode.NORMAL]: () => setIphoneModal(response),
+      [ActionMode.ATUALIZAR]: () => updateIphone(response),
+      [ActionMode.DELETAR]: () => deleteIphone(response),
+    };
+
+    mapper[mode]();
   };
 
   return (
     <div className="Iphones">
       {iphones.map((iphone, index) => (
         <IphoneItem
+          mode={mode}
           key={index}
           iphone={iphone}
           quantidadeSelecionada={iphoneSelecionado[index]}

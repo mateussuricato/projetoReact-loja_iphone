@@ -3,23 +3,30 @@ import Modal from "components/Modal/Modal";
 import "./AdicionaIphoneModal.css";
 import { iphoneService } from "services/iphoneService";
 import { toast } from "react-hot-toast";
+import { ActionMode } from "constants/index.js";
 
-
-function AdicionaIphoneModal({ closeModal, getIphones }) {
+function AdicionaIphoneModal({
+  closeModal,
+  getIphones,
+  iphoneToUpdate,
+  mode,
+  onIphoneUpdate,
+  onCreateIphone,
+}) {
   const form = {
-    titulo: "",
-    lancamento: "",
-    polegadas: "",
-    resolucao: "",
-    camera: "",
-    selfcamera: "",
-    video: "",
-    cpu: "",
-    gpu: "",
-    ram: "",
-    os: "",
-    preco: "",
-    img: "",
+    titulo: iphoneToUpdate?.titulo ?? "",
+    lancamento: iphoneToUpdate?.lancamento ?? "",
+    polegadas: iphoneToUpdate?.polegadas ?? "",
+    resolucao: iphoneToUpdate?.resolucao ?? "",
+    camera: iphoneToUpdate?.camera ?? "",
+    selfcamera: iphoneToUpdate?.selfcamera ?? "",
+    video: iphoneToUpdate?.video ?? "",
+    cpu: iphoneToUpdate?.cpu ?? "",
+    gpu: iphoneToUpdate?.gpu ?? "",
+    ram: iphoneToUpdate?.ram ?? "",
+    os: iphoneToUpdate?.os ?? "",
+    preco: iphoneToUpdate?.preco ?? "",
+    img: iphoneToUpdate?.img ?? "",
   };
 
   const [state, setState] = useState(form);
@@ -33,7 +40,7 @@ function AdicionaIphoneModal({ closeModal, getIphones }) {
   const canDisableSendButton = () => {
     const response = !Boolean(
       state.titulo.length &&
-        state.lancamento.length &&
+        String(state.lancamento).length &&
         state.polegadas.length &&
         state.resolucao.length &&
         state.camera.length &&
@@ -43,7 +50,7 @@ function AdicionaIphoneModal({ closeModal, getIphones }) {
         state.gpu.length &&
         state.ram.length &&
         state.os.length &&
-        state.preco.length &&
+        String(state.preco).length &&
         state.img.length
     );
     setCanDisable(response);
@@ -53,10 +60,9 @@ function AdicionaIphoneModal({ closeModal, getIphones }) {
     canDisableSendButton();
   });
 
-
   async function createIphone() {
-    const renomeiaCaminhoFoto = (fotoPath) => fotoPath.split("\\").pop();
-   
+    const renomeiaCaminhoFoto = (fotoPath) => fotoPath.split(/\\|\//).pop();
+
     const {
       titulo,
       lancamento,
@@ -73,8 +79,8 @@ function AdicionaIphoneModal({ closeModal, getIphones }) {
       img,
     } = state;
 
-
     const iphone = {
+      ...(iphoneToUpdate && { _id: iphoneToUpdate?.id }),
       titulo,
       lancamento,
       polegadas,
@@ -90,30 +96,60 @@ function AdicionaIphoneModal({ closeModal, getIphones }) {
       img: `../assets/images/${renomeiaCaminhoFoto(img)}`,
     };
 
-    closeModal()
-    
-    const doisSec = new Promise((resolve) => {
-      setTimeout(resolve, 500)
-    })
-    
-    toast.promise(
-      doisSec,
-       {
-         loading: "Adicionando...",
-         success: <b>Iphone adicionado</b>
-       }
-     );
+    closeModal();
 
-    await iphoneService.create(iphone);
+    const doisSec = new Promise((resolve) => {
+      setTimeout(resolve, 500);
+    });
+
+    toast.promise(doisSec, {
+      loading: "Adicionando...",
+      success: <b>Iphone adicionado</b>,
+    });
+
+    const serviceCall = {
+      [ActionMode.NORMAL]: () => iphoneService.create(iphone),
+      [ActionMode.ATUALIZAR]: () =>
+        iphoneService.updateById(iphoneToUpdate?.id, iphone),
+    };
+
+    const response = await serviceCall[mode]();
+
+    const actionResponse = {
+      [ActionMode.NORMAL]: () => onCreateIphone(response),
+      [ActionMode.ATUALIZAR]: () => onIphoneUpdate(response),
+    };
+
+    actionResponse[mode]();
+
+    const reset = {
+      titulo: "",
+      lancamento: "",
+      polegadas: "",
+      resolucao: "",
+      camera: "",
+      selfcamera: "",
+      video: "",
+      cpu: "",
+      gpu: "",
+      ram: "",
+      os: "",
+      preco: "",
+      img: "",
+    };
+
+    setState(reset);
+
+    // await iphoneService.create(iphone);
   }
-  
-  getIphones()
+
+  getIphones();
 
   return (
     <Modal closeModal={closeModal}>
       <div className="AdicionaIphoneModal">
         <form autoComplete="off" action="">
-          <h2>Adicionar Iphone</h2>
+          <h2> {ActionMode.ATUALIZAR === mode ? "Atualizar" : "Adicionar"} </h2>
           <div>
             <label htmlFor="nome">Nome: </label>
             <input
@@ -255,7 +291,6 @@ function AdicionaIphoneModal({ closeModal, getIphones }) {
               type="file"
               id="img"
               accept="image/png"
-              value={state.img}
               onChange={(e) => handleChange(e, "img")}
               required
             />
@@ -266,7 +301,7 @@ function AdicionaIphoneModal({ closeModal, getIphones }) {
             className="enviar"
             onClick={createIphone}
           >
-            Enviar
+            {ActionMode.NORMAL === mode ? "Enviar" : "Atualizar"}
           </button>
         </form>
       </div>

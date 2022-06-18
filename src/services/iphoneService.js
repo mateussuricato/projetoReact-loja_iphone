@@ -3,7 +3,6 @@ import { api } from "helpers/api.js";
 const parseResponse = (response) => response.json();
 
 const transformIphone = (iphone) => {
-
   return {
     ...iphone,
     id: iphone._id,
@@ -19,15 +18,15 @@ const transformIphone = (iphone) => {
     ram: iphone.ram,
     os: iphone.os,
     preco: iphone.preco,
-    img: iphone.img
+    img: iphone.img,
   };
 };
 
-const parseTransformLista = (response) => parseResponse(response).then(iphones => iphones.map(transformIphone));
+const parseTransformLista = (response) =>
+  parseResponse(response).then((iphones) => iphones.map(transformIphone));
 
-
-const parseTransformItem = (response) => parseResponse(response).then(transformIphone);
-
+const parseTransformItem = (response) =>
+  parseResponse(response).then(transformIphone);
 
 export const iphoneService = {
   getLista: () =>
@@ -35,10 +34,23 @@ export const iphoneService = {
   getById: (id) =>
     fetch(api.iphoneById(id), { method: "GET" }).then(parseTransformItem),
   create: (iphone) =>
-    fetch(api.createIphone(), { method: "POST", body: JSON.stringify(iphone), mode: "cors", headers: {
-      "Content-Type": "application/json"} }).then(parseTransformItem),
-  updateById: (id) =>
-    fetch(api.updateIphone(id), { method: "PUT" }).then(parseResponse),
+    fetch(api.createIphone(), {
+      method: "POST",
+      body: JSON.stringify(iphone),
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(parseTransformItem),
+  updateById: (id, iphone) =>
+    fetch(api.updateIphone(id), {
+      method: "PUT",
+      body: JSON.stringify(iphone),
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(parseResponse),
   deleteById: (id) =>
     fetch(api.deleteIphone(id), { method: "DELETE" }).then(parseResponse),
 };

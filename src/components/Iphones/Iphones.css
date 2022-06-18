@@ -27,6 +27,7 @@
   justify-content: space-around;
   position: relative;
   cursor: pointer;
+  transition: all 0.5s;
 }
 
 @media (max-width: 400px) {
@@ -49,28 +50,27 @@
 }
 
 .IphoneItem_preco {
-    color: yellow;
-    margin-top: 10px;
+  color: yellow;
+  margin-top: 10px;
 }
 
 .IphoneItem_lancamento {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .IphoneItem_camera {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .IphoneItem_img {
-    height: 140px;
-    margin-right: -70px;
+  height: 140px;
+  margin-right: -70px;
 }
 
 .Acoes {
-    display: flex;
-    justify-content: space-between;
-  }
-
+  display: flex;
+  justify-content: space-between;
+}
 
 .Adicionar {
   background-color: #1b5c50;
@@ -106,7 +106,7 @@
   height: 20px;
   text-align: center;
   vertical-align: middle;
-  font-size: .8em;
+  font-size: 0.8em;
   display: flex;
   justify-content: center;
   align-items: center;

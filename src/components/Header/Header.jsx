@@ -1,13 +1,34 @@
 import "./Header.css";
+import { ActionMode } from "constants/index.js";
 import criar from "../../assets/images/criar.png";
+import editar from "../../assets/images/editar.png";
+import apagar from "../../assets/images/apagar.png"
 
-function Header({createIphone}) {
+function Header({ createIphone, updateIphone, mode, deleteIphone }) {
   return (
     <header>
       <div>
         <h1>Lojinha</h1>
       </div>
       <div>
+      <button
+          className={`Opcoes__iphone Iphone ${
+            mode === ActionMode.DELETAR && "Iphone--deletar"
+          }`}
+          type="button"
+          onClick={() => deleteIphone()}
+        >
+          <img className="sacola" src={apagar} alt="" />
+        </button>
+        <button
+          className={`Opcoes__iphone Iphone ${
+            mode === ActionMode.ATUALIZAR && "Iphone--ativa"
+          }`}
+          type="button"
+          onClick={() => updateIphone()}
+        >
+          <img className="sacola" src={editar} alt="" />
+        </button>
         <button
           type="button"
           className="Opcoes__iphone Iphone"

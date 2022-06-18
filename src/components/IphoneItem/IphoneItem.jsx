@@ -1,6 +1,15 @@
+import { ActionMode } from "constants/index.js";
 import "./IphoneItem.css";
 
-function IphoneItem({iphone, quantidadeSelecionada, index, onRemove, onAdd, clickItem}) {
+function IphoneItem({
+  iphone,
+  quantidadeSelecionada,
+  index,
+  onRemove,
+  onAdd,
+  clickItem,
+  mode,
+}) {
   const badgeCounter = (canRender, index) =>
     Boolean(canRender) && (
       <span className="IphonesItem_badge"> {quantidadeSelecionada} </span>
@@ -9,6 +18,7 @@ function IphoneItem({iphone, quantidadeSelecionada, index, onRemove, onAdd, clic
   const removeButton = (canRender, index) =>
     Boolean(canRender) && (
       <button
+        disabled={mode !== ActionMode.NORMAL}
         className="Remover"
         onClick={(e) => {
           e.stopPropagation();
@@ -19,9 +29,28 @@ function IphoneItem({iphone, quantidadeSelecionada, index, onRemove, onAdd, clic
       </button>
     );
 
+  const badgeAction = (canRender) => {
+    if (canRender)
+      return (
+        <span
+          className={`tag ${mode === ActionMode.DELETAR && "tag--deletar"}`}
+        >
+          {" "}
+          {mode}{" "}
+        </span>
+      );
+  };
+
   return (
-    <div className="IphonesItem" onClick={() => clickItem(iphone.id) }>
+    <div
+      className={`IphonesItem 
+        ${mode !== ActionMode.NORMAL && "IphonesItem--disable"}
+        ${mode === ActionMode.DELETAR && "IphonesItem--deletar"}
+      `}
+      onClick={() => clickItem(iphone.id)}
+    >
       {badgeCounter(quantidadeSelecionada, index)}
+      {badgeAction(mode !== ActionMode.NORMAL)}
       <div>
         <div className="IphoneItem_titulo">{iphone.titulo}</div>
         <div className="IphoneItem_preco">R$ {iphone.preco},00</div>
@@ -29,6 +58,7 @@ function IphoneItem({iphone, quantidadeSelecionada, index, onRemove, onAdd, clic
         <div className="IphoneItem_camera">Câmera: {iphone.camera}</div>
         <div className="IphoneItem_acoes Acoes">
           <button
+            disabled={mode !== ActionMode.NORMAL}
             className={`Adicionar ${!quantidadeSelecionada && "Preencher"}`}
             onClick={(e) => {
               e.stopPropagation();

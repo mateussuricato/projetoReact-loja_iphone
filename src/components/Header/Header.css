@@ -1,31 +1,49 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 header {
-    display: flex;
-    color: white;
-    background-color: #1b5c50;
-    border-radius: 0 0 70px 70px;
-    justify-content: space-around;
-    align-items: center;
-    height: 50px;
-    margin-bottom: 30px;
+  display: flex;
+  color: white;
+  background-color: #1b5c50;
+  border-radius: 0 0 70px 70px;
+  justify-content: space-around;
+  align-items: center;
+  height: 50px;
+  margin-bottom: 30px;
 }
 
 header > div > h1 {
-    padding: 20px;
-    font-size: 30px;
-
+  padding: 20px;
+  font-size: 30px;
 }
 
 .sacola {
-    height: 30px;
-    cursor: pointer;
+  margin-right: 1px;
+  height: 30px;
+  cursor: pointer;
 }
 
 button {
-    background: none;
-    border: none;
+  background: none;
+  border: none;
+}
+
+.Iphone {
+  background: none;
+  border: none;
+  transition: all 0.1s;
+}
+.Iphone--ativa {
+  border-radius: 10px;
+  background: rgb(4, 176, 189);
+  padding: 3px;
+}
+
+.Iphone--deletar {
+  margin-left: 10px;
+  border-radius: 10px;
+  background: rgba(211, 0, 0);
+  padding: 3px;
 }
