@@ -7,7 +7,14 @@ const iphoneContext = {
   deleteIphone: (id) => `${iphoneContext.iphoneEndpoint()}/delete/${id}`,
 };
 
+const sacolaContext = {
+  getSacola: () => `${iphoneContext.iphoneEndpoint()}/all-carrinho`,
+  createSacola: () => `${iphoneContext.iphoneEndpoint()}/create-carrinho`,
+  purchase: () => `${iphoneContext.iphoneEndpoint()}/finish-carrinho`,
+}
+
 export const api = {
-  baseURL: "http://localhost:3004/",
+  baseURL: "http://localhost:3004",
   ...iphoneContext,
+  ...sacolaContext
 };

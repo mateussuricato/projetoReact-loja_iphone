@@ -4,7 +4,7 @@ import criar from "../../assets/images/criar.png";
 import editar from "../../assets/images/editar.png";
 import apagar from "../../assets/images/apagar.png"
 
-function Header({ createIphone, updateIphone, mode, deleteIphone }) {
+function Header({ createIphone, updateIphone, mode, deleteIphone, openBag }) {
   return (
     <header>
       <div>
@@ -40,6 +40,7 @@ function Header({ createIphone, updateIphone, mode, deleteIphone }) {
           className="sacola"
           src="https://frontend-elgeladon.onrender.com/assets/images/icons/sacola.svg"
           alt=""
+          onClick={openBag}
         />
       </div>
     </header>

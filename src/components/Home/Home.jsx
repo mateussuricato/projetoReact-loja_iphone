@@ -6,6 +6,8 @@ import Header from "components/Header/Header";
 import { iphoneService } from "services/iphoneService";
 import { ActionMode } from "constants/index.js";
 import DeleteModal from "components/DeleteModal/DeleteModal";
+import SacolaModal from "components/SacolaModal/SacolaModal";
+import { sacolaService } from "services/sacolaService";
 
 function Home() {
   const [iphones, setIphone] = useState([]);
@@ -15,6 +17,7 @@ function Home() {
   const [iphoneParaEditar, setIphoneParaEditar] = useState();
   const [iphoneParaDeletar, setIphoneParaDeletar] = useState();
   const [iphoneRemovido, setIphoneRemovido] = useState();
+  const [canOpenBag, setCanOpenBag] = useState();
 
   const handleDeleteIphone = (iphoneToDelete) => {
     setIphoneParaDeletar(iphoneToDelete);
@@ -23,6 +26,15 @@ function Home() {
   const handleUpdateIphone = (paletaToUpdate) => {
     setIphoneParaEditar(paletaToUpdate);
     setCanShow(true);
+  };
+
+  const abrirSacola = async () => {
+    const lista = JSON.parse(localStorage.getItem("sacola"));
+    const sacola = lista.filter((i) => i.quantidade > 0);
+
+    await sacolaService.create(sacola);
+
+    setCanOpenBag(true);
   };
 
   const handleCloseModal = () => {
@@ -44,7 +56,6 @@ function Home() {
     },
     [iphones]
   );
-
 
   useEffect(() => {
     if (iphoneAdd && !iphones.map(({ id }) => id).includes(iphoneAdd.id)) {
@@ -68,6 +79,7 @@ function Home() {
         mode={modoAtual}
         createIphone={() => setCanShow(true)}
         updateIphone={() => handleActions(ActionMode.ATUALIZAR)}
+        openBag={abrirSacola}
       />
       <div className="Home_container">
         <Iphones
@@ -93,6 +105,7 @@ function Home() {
             onDeleteIphone={(iphone) => setIphoneRemovido(iphone)}
           />
         )}
+        {canOpenBag && <SacolaModal closeModal={() => setCanOpenBag(false)} />}
       </div>
     </div>
   );

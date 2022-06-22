@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { iphoneService } from "services/iphoneService.js";
 import IphoneDetalhes from "components/IphoneDetalhes/IphoneDetalhes";
 import IphoneItem from "components/IphoneItem/IphoneItem";
 import "./Iphones.css";
 import { ActionMode } from "constants/index.js";
 
-export function Iphones({ iphones, mode, updateIphone, deleteIphone}) {
+export function Iphones({ iphones, mode, updateIphone, deleteIphone }) {
+  const selecionadas = JSON.parse(localStorage.getItem("selecionadas")) ?? {};
 
-  const [iphoneSelecionado, setIphoneSelecionado] = useState([]);
+  const [iphoneSelecionado, setIphoneSelecionado] = useState(selecionadas);
 
   const [iphoneModal, setIphoneModal] = useState(false);
 
@@ -17,6 +18,19 @@ export function Iphones({ iphones, mode, updateIphone, deleteIphone}) {
     };
     setIphoneSelecionado({ ...iphoneSelecionado, ...iphone });
   };
+
+  const setSelecionadas = useCallback(() => {
+    if(!iphones.length) return
+
+    const entries = Object.entries(iphoneSelecionado);
+    const sacola = entries.map(arr => ({
+      iphoneId: iphones[arr[0]].id,
+      quantidade: arr[1]
+    }))
+
+    localStorage.setItem('sacola', JSON.stringify(sacola))
+    localStorage.setItem('selecionadas', JSON.stringify(iphoneSelecionado))
+  }, [ iphoneSelecionado, iphones ])
 
   const removerItem = (iphoneIndex) => {
     const iphone = {
@@ -35,6 +49,10 @@ export function Iphones({ iphones, mode, updateIphone, deleteIphone}) {
 
     mapper[mode]();
   };
+
+  useEffect(() => {
+    setSelecionadas();
+  }, [ setSelecionadas, iphoneSelecionado ]);
 
   return (
     <div className="Iphones">
