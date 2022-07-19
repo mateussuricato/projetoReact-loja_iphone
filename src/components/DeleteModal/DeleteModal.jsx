@@ -2,12 +2,19 @@ import "./DeleteModal.css";
 import Modal from "components/Modal/Modal";
 import { iphoneService } from "services/iphoneService";
 
-function DeleteModal({ closeModal, iphoneParaDeletar, onDeleteIphone }) {
+function DeleteModal({
+  closeModal,
+  iphoneParaDeletar,
+  onDeleteIphone,
+  getIphones,
+}) {
   const handleDelete = async (iphone) => {
     await iphoneService.deleteById(iphone.id);
     onDeleteIphone(iphone);
+    getIphones();
     closeModal();
   };
+
   return (
     <Modal closeModal={closeModal}>
       <div className="DeleteModal">

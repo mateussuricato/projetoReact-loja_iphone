@@ -103,6 +103,7 @@ function Home() {
             iphoneParaDeletar={iphoneParaDeletar}
             closeModal={handleCloseModal}
             onDeleteIphone={(iphone) => setIphoneRemovido(iphone)}
+            getIphones={getLista}
           />
         )}
         {canOpenBag && <SacolaModal closeModal={() => setCanOpenBag(false)} />}
