@@ -24,7 +24,7 @@ export function Iphones({ iphones, mode, updateIphone, deleteIphone }) {
 
     const entries = Object.entries(iphoneSelecionado);
     const sacola = entries.map(arr => ({
-      iphoneId: iphones[arr[0]].id,
+      iphoneId: iphones[arr[0]],
       quantidade: arr[1]
     }))
 
