@@ -16,3 +16,9 @@ Ferramentas usadas:
 <img style="width:5%" src="https://img.icons8.com/color/48/000000/css3.png"/>
 <img style="width:5%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/200px-React-icon.svg.png"/>
 </div>
+
+## API
+
+API consumida no projeto se encontra no link abaixo:
+
+https://github.com/mateussuricato/api_iphone
